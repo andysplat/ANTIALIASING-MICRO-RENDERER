@@ -1,0 +1,8 @@
+Partea 1
+Pentru rezolvarea temei a folosit o structura, ce contine un char pentru tipul imaginii (0 incolor si 1 color), 2 matrici una in care salvez imaginile color si alta pentru cele alb negru, 2 int-uri pentru (rezolutie) numarul de linii si numarul de coloane ale matricii, si un char pentru maxval.
+Am mai creat un tip rgb pentru matriea color pentru a pastra formulele folostie la calculul pentru imaginile incolore.
+Pentru cazul in care resize_factor = 3, am facu o matrice globala GK (Kernel Gaussian), pe care o folosesc in calculul noilor pixeli.
+Pentru scalabilitate am paralelizat pe linii, astfel incat un thread calculeaza un anumit numar de linii din matricea pentru noua imagine. Pentru acest lucru am folosit un vector global de id-uri, pentru ca fiecare thread sa stie cu ce linie trbuie sa inceapa, urmatoarea linie fiind cea care se afla peste num_threads linnii, astfel ma asigur ca 2 thread-uri nu vor calcula niciodata aceeasi linie, si totodata ca numrul de linii este bine distribuit intre thread-uri. Am folosit 2 matrici globale (una pentru imaginile colore si una pentru imaginile incolore) in care am copiat matricea de pixeli corespunzatoare imaginii originale, pentru a putea accesa volrile din acestei matrici in threadFunction. Am dat ca parametru la threadFunction imaginea finala pentru a completa mai usor matricea sa (fara sa mai fac o copie globala, ca pentru imaginea originala). 
+
+Partea 2  
+Am initializat matricea cu 0 (adica am facut o imagine neagra, pentru a colora cu alb doar pixeli care nu respecta formula). La scalbilitate am folosit acelasi tip de paralelizare ca la prima parte.
